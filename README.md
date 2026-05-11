@@ -1,3 +1,7 @@
+[![CI Status](https://img.shields.io/github/actions/workflow/status/postgrespro/pgpro-pytest-html-json-extractor/.github/workflows/ci.yml?label=CI)](https://github.com/postgrespro/pgpro-pytest-html-json-extractor/actions/workflows/ci.yml)
+[![PyPI package version](https://badge.fury.io/py/pgpro-pytest-html-json-extractor.svg)](https://badge.fury.io/py/pgpro-pytest-html-json-extractor)
+[![PyPI python versions](https://img.shields.io/pypi/pyversions/pgpro-pytest-html-json-extractor)](https://pypi.org/project/pgpro-pytest-html-json-extractor)
+
 # pgpro-pytest-html-json-extractor
 A tool to extract json data from pytest-html report. Developed and maintained by Postgres Professional.
 

@@ -48,7 +48,7 @@ dependencies = [
 "HomePage" = "https://github.com/postgrespro/pgpro-pytest-html-merger"
 
 [project.scripts]
-pgpro-pytest-html-merger = "pgpro_pytest_html_json_extractor.__main__:cli"
+pgpro-pytest-html-json-extractor = "pgpro_pytest_html_json_extractor.__main__:cli"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

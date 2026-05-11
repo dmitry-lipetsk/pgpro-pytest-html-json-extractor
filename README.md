@@ -1,0 +1,30 @@
+# pgpro-pytest-html-json-extractor
+A tool to extract json data from pytest-html report. Developed and maintained by Postgres Professional.
+
+### Command Line Arguments
+
+| Argument | Shorthand | Required | Description | Default |
+| :--- | :--- | :--- | :--- | :--- |
+| `--out` | `-o` | Yes | Name of the output JSON file | None |
+| `--verbose` | `-v` | No | Level of logging verbosity | 3 |
+| `--no-check-json` | | No | Do not validate json data after extraction | None |
+| `--replace` | `-r` | No | Replace output if it exists | None |
+| `input` | | Yes | Positional argument for HTML file | None |
+
+### Basic Examples
+Extract JSON from a report:
+```bash
+pgpro-pytest-html-json-extractor report.html -o report.json
+```
+
+## Contributing
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'feat: add some amazing feature'`).
+4. Push to the branch (`git push origin feature/amazing-feature`).
+5. Open a Pull Request.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+© 2026 Postgres Professional

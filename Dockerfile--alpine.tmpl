@@ -1,0 +1,27 @@
+ARG PYTHON_VERSION
+ARG PYTEST_HTML_SPEC
+
+# --------------------------------------------- base1
+FROM python:${PYTHON_VERSION}-alpine AS base1
+
+# --------------------------------------------- base1
+FROM base1 AS base2
+
+# --------------------------------------------- final
+FROM base2 AS final
+
+RUN apk add bash
+
+RUN adduser -D test
+
+ADD --chown=test:test . /home/test/merger
+WORKDIR /home/test/extractor
+RUN chmod +x run_tests3.sh
+
+USER test
+
+ARG PYTEST_HTML_SPEC
+RUN test -n "$PYTEST_HTML_SPEC" || (echo "PYTEST_HTML_SPEC is mandatory" && false)
+ENV PYTEST_HTML_SPEC=${PYTEST_HTML_SPEC}
+
+ENTRYPOINT ["./run_tests3.sh"]

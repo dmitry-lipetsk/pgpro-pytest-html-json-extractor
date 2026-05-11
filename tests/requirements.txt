@@ -1,0 +1,5 @@
+bs4
+pytest
+pytest-xdist
+pytest-html>=4.0.2
+pytest-rerunfailures

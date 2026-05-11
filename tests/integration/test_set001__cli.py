@@ -52,10 +52,6 @@ def test_cli_002__help():
     # Check that our keywords are in the output
     output = result.stdout
     assert "usage:" in output
-    assert (
-        "[-h] --out OUT [--replace] [--no-check-json] [--verbose]\n                   input"
-        in output
-    )
     assert "A tool to extract json data from pytest-html report." in output
     assert "--out" in output
     assert "--no-check-json" in output

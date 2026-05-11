@@ -10,6 +10,8 @@ import sys
 import re
 import typing
 
+from . import __version__ as current_version
+
 from packaging.version import Version
 
 # //////////////////////////////////////////////////////////////////////////////
@@ -47,6 +49,13 @@ def parse_arguments() -> argparse.Namespace:
     command_parser = argparse.ArgumentParser(
         description="A tool to extract json data from pytest-html report.",
         epilog="Example: pgpro-pytest-html-json-extract -o report.json report.html",
+    )
+
+    command_parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {current_version}",
+        help="Show program's version number and exit",
     )
 
     command_parser.add_argument(

@@ -76,6 +76,9 @@ jobs:
         # If entry_points is set incorrectly, everything will fail here.
         pgpro-pytest-html-json-extractor --help
 
+        # 3. Checking the version
+        pgpro-pytest-html-json-extractor --version
+
   test:
     runs-on: ubuntu-latest
     needs: build-check

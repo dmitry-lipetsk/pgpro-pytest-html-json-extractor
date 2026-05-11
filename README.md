@@ -5,6 +5,7 @@ A tool to extract json data from pytest-html report. Developed and maintained by
 
 | Argument | Shorthand | Required | Description | Default |
 | :--- | :--- | :--- | :--- | :--- |
+| `--version` | | No | Show program's version number and exit | None |
 | `--out` | `-o` | Yes | Name of the output JSON file | None |
 | `--verbose` | `-v` | No | Level of logging verbosity | 3 |
 | `--no-check-json` | | No | Do not validate json data after extraction | None |

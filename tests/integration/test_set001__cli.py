@@ -4,6 +4,9 @@ import os
 import typing
 import sys
 import json
+import re
+
+from src.pgpro_pytest_html_json_extractor import __version__ as prog_version
 
 # //////////////////////////////////////////////////////////////////////////////
 
@@ -256,6 +259,19 @@ def test_cli_008__bad_output_file_extension(tmp_path, output_file):
         in str(result.stderr)
     )
     assert "" in str(result.stdout)
+    return
+
+
+# ------------------------------------------------------------------------
+def test_cli_009__version():
+    """
+    Check that --version prints the version and exits with code 0.
+    """
+    result = run_cli(["--version"])
+
+    assert result.returncode == 0
+    # We check that the output contains the version of our utility.
+    assert re.search(re.escape(" " + prog_version) + "$", result.stdout) is not None
     return
 
 

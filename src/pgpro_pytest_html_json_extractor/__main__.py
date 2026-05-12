@@ -9,6 +9,7 @@ import os
 import sys
 import re
 import typing
+import html
 
 from . import __version__ as current_version
 
@@ -16,7 +17,7 @@ from packaging.version import Version
 
 # //////////////////////////////////////////////////////////////////////////////
 
-log = logging.getLogger(__name__)
+g_log = logging.getLogger(__name__)
 
 
 # //////////////////////////////////////////////////////////////////////////////
@@ -81,6 +82,13 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     command_parser.add_argument(
+        "--no-unescape-logs",
+        dest="unescape_logs",
+        action="store_false",
+        help="do not unescape HTML entities in logs",
+    )
+
+    command_parser.add_argument(
         "--verbose",
         "-v",
         help="level of logging verbosity",
@@ -138,12 +146,13 @@ class PytestHtmlJsonExtractor:
         check_json: bool,
         output_path: str,
         replace: bool,
+        unescape_logs: bool = True,
     ):
         assert type(input_path) is str
         assert type(check_json) is bool
         assert type(output_path) is str
 
-        log.info("Processing report: {}".format(input_path))
+        g_log.info("Processing report: {}".format(input_path))
 
         with open(input_path, "r", encoding="utf-8") as f:
             soup = bs4.BeautifulSoup(f, features="html.parser")
@@ -167,25 +176,85 @@ class PytestHtmlJsonExtractor:
             __class__._raise_err__json_blob_is_not_found(input_path)
 
         report_data_container = containers[0]
-        report_jsonblob = report_data_container.get("data-jsonblob")
 
-        if report_jsonblob is None:
+        jsonblob = report_data_container.get("data-jsonblob")
+
+        # memory is freed
+        del report_data_container
+        del soup
+
+        # ----------
+        if jsonblob is None:
             __class__._raise_err__json_blob_is_not_found(
                 input_path,
             )
 
-        assert type(report_jsonblob) is str
+        assert type(jsonblob) is str
+
+        if unescape_logs:
+            jsondata = json.loads(jsonblob)
+            __class__._inplace_unescape_logs(jsondata)
+            jsonblob = json.dumps(jsondata, ensure_ascii=False)
+            del jsondata  # memory is freed
 
         if check_json:
-            log.info("Json data is checked...")
-            json.loads(report_jsonblob)
+            g_log.info("Json data is checked...")
+            json.loads(jsonblob)
 
         # write to file
         write_mode = "w" if replace else "x"
 
         with open(output_path, write_mode, encoding="utf-8") as f:
-            f.write(report_jsonblob)
+            f.write(jsonblob)
 
+        return
+
+    # --------------------------------------------------------------------
+    @staticmethod
+    def _inplace_unescape_logs(jsondata: typing.Any) -> None:
+        C_DATA_ELEMENT_ID__TESTS = "tests"
+        C_DATA_ELEMENT_ID__LOG = "log"
+
+        assert jsondata is not None
+
+        g_log.debug("Html escapes in logs are unpacking ...")
+
+        if type(jsondata) is not dict:
+            return
+
+        tests = jsondata.get(C_DATA_ELEMENT_ID__TESTS)
+
+        if tests is None:
+            return
+
+        if type(tests) is not dict:
+            return
+
+        for _, test_launches in tests.items():
+            if test_launches is None:
+                continue
+
+            if type(test_launches) is not list:
+                continue
+
+            for t in test_launches:
+                if t is None:
+                    continue
+
+                if type(t) is not dict:
+                    continue
+
+                log_data = t.get(C_DATA_ELEMENT_ID__LOG)
+
+                if log_data is None:
+                    continue
+
+                if type(log_data) is not str:
+                    continue
+
+                t[C_DATA_ELEMENT_ID__LOG] = html.unescape(log_data)
+                continue
+            continue
         return
 
     # --------------------------------------------------------------------
@@ -246,7 +315,7 @@ def main(arguments) -> int:
     # 1. Collect from positional files
     input_file = os.path.abspath(arguments.input)
     if not os.path.isfile(input_file):
-        log.error(
+        g_log.error(
             "Invalid input: '{}' is not a file or does not exist.".format(
                 arguments.input,
             ),
@@ -255,7 +324,7 @@ def main(arguments) -> int:
 
     # 2. Check output file
     if not arguments.replace and os.path.exists(arguments.out):
-        log.error(
+        g_log.error(
             "Invalid input: output file '{}' already exists.".format(
                 arguments.out,
             ),
@@ -264,7 +333,7 @@ def main(arguments) -> int:
 
     # 3. Final check
     if has_errors:
-        log.error(
+        g_log.error(
             "Termination due to input errors.",
         )
         return 1
@@ -275,9 +344,10 @@ def main(arguments) -> int:
         arguments.check_json,
         arguments.out,
         arguments.replace,
+        arguments.unescape_logs,
     )
 
-    log.info(
+    g_log.info(
         "Successfully extracted json into {}".format(
             arguments.out,
         ),
@@ -293,11 +363,11 @@ def cli():
 
     logging.basicConfig(level=int((6 - arguments.verbose) * 10))
 
-    log.debug("opts = {}".format(arguments))
+    g_log.debug("opts = {}".format(arguments))
 
     r = main(arguments)
 
-    log.debug("exiting")
+    g_log.debug("exiting")
     return r
 
 

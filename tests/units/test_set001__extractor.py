@@ -77,6 +77,8 @@ def test_002__unsupported_version(tmp_path):
     [
         '{"key": "value"}',
         '{"list": [1, 2, 3], "nested": {"a": 1}}',
+        '{"list": [1.5, 2.5, 3.5], "nested": {"a": 1.5}}',
+        '{"list": [true, false, true], "nested": {"a": "true"}}',
         "[]",  # An empty list is also valid JSON
     ],
 )

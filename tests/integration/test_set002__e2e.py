@@ -270,22 +270,20 @@ def data002(request: pytest.FixtureRequest) -> tagData002:
 
 
 # ------------------------------------------------------------------------
-def test_e2e_002__unescape_logs__DEFAULT(
-    data002: tagData002
-):
+def test_e2e_002__unescape_logs__DEFAULT(data002: tagData002):
     _test_e2e_002__unescape_logs(
         data002,
         False,
-    )  
+    )
+
 
 # ------------------------------------------------------------------------
-def test_e2e_002__unescape_logs__AUTO(
-    data002: tagData002
-):
+def test_e2e_002__unescape_logs__AUTO(data002: tagData002):
     _test_e2e_002__unescape_logs(
         data002,
         True,
-    )  
+    )
+
 
 # ------------------------------------------------------------------------
 def _test_e2e_002__unescape_logs(

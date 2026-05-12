@@ -6,7 +6,8 @@
 A tool to extract json data from pytest-html report. Developed and maintained by Postgres Professional.
 
 ## Key features
-- Extractor produces JSON with unescaped HTML entities in log messages
+- Extractor supports pytest-html v4.0.2+
+- Extractor produces JSON with unescaped HTML entities in log messages (for pytest-html v4.1.0+)
 
 ## Installation
 You can install the package directly from the repository (until it's published to PyPI):

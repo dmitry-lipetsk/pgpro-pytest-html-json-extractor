@@ -139,7 +139,7 @@ class RuntimeBoolExpression:
             start = ctx.pos
             while ctx.pos < len(ctx.text) and ctx.text[ctx.pos] in "<>!=|&":
                 ctx.pos += 1
-            ctx.last_token = ctx.text[start : ctx.pos]
+            ctx.last_token = ctx.text[start : ctx.pos]  # noqa: E203
         # Идентификаторы и значения (до разделителя)
         else:
             start = ctx.pos
@@ -148,7 +148,7 @@ class RuntimeBoolExpression:
             ):  # noqa: E501
                 ctx.pos += 1
             # Убираем кавычки если есть
-            ctx.last_token = ctx.text[start : ctx.pos].strip("'\"")
+            ctx.last_token = ctx.text[start : ctx.pos].strip("'\"")  # noqa: E203
         return
 
     # --------------------------------------------------------------------

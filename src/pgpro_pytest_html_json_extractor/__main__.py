@@ -73,14 +73,12 @@ def parse_arguments() -> argparse.Namespace:
         action="store_true",
     )
 
-    # Логика включения/выключения
     command_parser.add_argument(
         "--no-check-json",
         dest="check_json",
         action="store_false",
         help="skip JSON format validation after extraction",
     )
-    command_parser.set_defaults(check=True)
 
     command_parser.add_argument(
         "--verbose",

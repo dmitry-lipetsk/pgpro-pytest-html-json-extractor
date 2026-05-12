@@ -22,7 +22,7 @@ def test_e2e_001__single_report_metadata():
 
         html = ws.generate_report("run1", test_code, metadata=metadata)
 
-        # 2. Define output path and run merger
+        # 2. Define output path and run extractor
         output_json = ws.root / "output_json.json"
         # We point to the directory where run1.html was generated
         result = ws.run_extractor(
@@ -34,7 +34,7 @@ def test_e2e_001__single_report_metadata():
         )
 
         # 3. Assertions
-        assert result.returncode == 0, f"Merger failed: {result.stderr}"
+        assert result.returncode == 0, f"Extractor failed: {result.stderr}"
         assert output_json.exists(), "Output JSON file was not created."
 
         content = output_json.read_text()

@@ -160,18 +160,18 @@ g_Data002__html4_0_2: typing.List[tagData002] = [
     ),
     # --------------------------------------------------------------------
     tagData002(
-        test_spec="PYTEST_HTML>='4.1.0'",
+        test_spec="PYTEST_HTML<'4.1.0'",
         data="<b>text<b>",
-        in_html="&amp;lt;b&amp;gt;text&amp;lt;b&amp;gt;",
+        in_html="&lt;b&gt;text&lt;b&gt;",
         in_json="<b>text<b>",
-        sign="html_with_bold_text",
+        sign="html_with_bold_text__pytest_html4_0_2",
     ),
     tagData002(
-        test_spec="PYTEST_HTML>='4.1.0'",
+        test_spec="PYTEST_HTML<'4.1.0'",
         data='<span style="font-weight: bold; color: red; font-size: 2em;">text</span>',
-        in_html="&amp;lt;span style=&amp;quot;font-weight: bold; color: red; font-size: 2em;&amp;quot;&amp;gt;text&amp;lt;/span&amp;gt;",
+        in_html="&lt;span style=\\&#34;font-weight: bold; color: red; font-size: 2em;\\&#34;&gt;text&lt;/span&gt;",
         in_json='<span style=\\"font-weight: bold; color: red; font-size: 2em;\\">text</span>',
-        sign="html_with_bold_red_LARGE_text",
+        sign="html_with_bold_red_LARGE_text__pytest_html4_0_2",
     ),
 ]
 

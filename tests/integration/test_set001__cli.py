@@ -60,6 +60,7 @@ def test_cli_002__help():
     assert "--no-check-json" in output
     assert "--replace" in output
     assert "--verbose" in output
+    assert "Unescape HTML entities in logs (default: auto)" in output
     return
 
 

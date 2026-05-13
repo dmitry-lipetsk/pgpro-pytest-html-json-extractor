@@ -102,7 +102,7 @@ def parse_arguments() -> argparse.Namespace:
         choices=list(UnescapeLogsMode),
         default=UnescapeLogsMode.AUTO,
         help="Unescape HTML entities in logs (default: {})".format(
-            UnescapeLogsMode.AUTO.name,
+            UnescapeLogsMode.AUTO,
         ),
     )
 

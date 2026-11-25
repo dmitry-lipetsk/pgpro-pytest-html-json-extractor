@@ -174,7 +174,14 @@ class PytestHtmlJsonExtractor:
         g_log.info("Processing report: {}".format(input_path))
 
         with open(input_path, "r", encoding="utf-8") as f:
-            soup = bs4.BeautifulSoup(f, features="html.parser")
+            html_content = f.read()
+
+        assert type(html_content) is str
+
+        soup = bs4.BeautifulSoup(
+            html_content,
+            features="html.parser",
+        )
 
         html_version_s = __class__._extract_pytest_html_version(
             input_path,

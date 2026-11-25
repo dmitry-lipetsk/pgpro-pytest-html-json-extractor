@@ -169,6 +169,7 @@ class PytestHtmlJsonExtractor:
         assert type(input_path) is str
         assert type(check_json) is bool
         assert type(output_path) is str
+        assert type(replace) is bool
 
         g_log.info("Processing report: {}".format(input_path))
 

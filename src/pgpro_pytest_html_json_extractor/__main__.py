@@ -370,14 +370,20 @@ class PytestHtmlJsonExtractor:
     # --------------------------------------------------------------------
     sm_ReportAdapterForPytestHtml_4_0_2 = tagReportAdapter(
         # typing.cast is used to avoid a problem with py3.8
-        extractor_func=typing.cast(staticmethod, _extract_json_from_html_4_0_2),
+        extractor_func=typing.cast(
+            staticmethod,
+            _extract_json_from_html_4_0_2,
+        ).__func__,
         escapes_log=UnescapeLogsMode.NO,
     )
 
     # --------------------------------------------------------------------
     sm_ReportAdapterForPytestHtml_4_1_0 = tagReportAdapter(
         # typing.cast is used to avoid a problem with py3.8
-        extractor_func=typing.cast(staticmethod, _extract_json_from_html_4_0_2),
+        extractor_func=typing.cast(
+            staticmethod,
+            _extract_json_from_html_4_0_2,
+        ).__func__,
         escapes_log=UnescapeLogsMode.YES,
     )
 

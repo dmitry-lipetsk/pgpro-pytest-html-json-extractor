@@ -244,8 +244,10 @@ class PytestHtmlJsonExtractor:
         soup: bs4.BeautifulSoup
 
     # --------------------------------------------------------------------
-    # @staticmethod
-    def _extract_json_from_html_4_0_2(ctx: tagExtractCtx):
+    @staticmethod
+    def _extract_json_from_html_4_0_2(
+        ctx: tagExtractCtx,
+    ):
         assert type(ctx) is __class__.tagExtractCtx
 
         containers = ctx.soup.select("#data-container")
@@ -367,13 +369,15 @@ class PytestHtmlJsonExtractor:
 
     # --------------------------------------------------------------------
     sm_ReportAdapterForPytestHtml_4_0_2 = tagReportAdapter(
-        extractor_func=_extract_json_from_html_4_0_2,
+        # typing.cast is used to avoid a problem with py3.8
+        extractor_func=typing.cast(staticmethod, _extract_json_from_html_4_0_2),
         escapes_log=UnescapeLogsMode.NO,
     )
 
     # --------------------------------------------------------------------
     sm_ReportAdapterForPytestHtml_4_1_0 = tagReportAdapter(
-        extractor_func=_extract_json_from_html_4_0_2,
+        # typing.cast is used to avoid a problem with py3.8
+        extractor_func=typing.cast(staticmethod, _extract_json_from_html_4_0_2),
         escapes_log=UnescapeLogsMode.YES,
     )
 
